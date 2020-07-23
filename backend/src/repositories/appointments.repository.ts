@@ -1,31 +1,13 @@
-import { isEqual } from 'date-fns';
+import { EntityRepository, Repository } from 'typeorm';
 import Appointment from '../models/appointment.model';
 
-interface CreateAppointmentDTO {
-  barber: string;
-  date: Date;
-}
-
-class AppointmentsRepository {
-  private appointments: Appointment[];
-
-  constructor() {
-    this.appointments = [];
-  }
-
-  public all(): Appointment[] {
-    return this.appointments;
-  }
-
-  public findByDate(date: Date): Appointment | null {
-    const appointment = this.appointments.find(a => isEqual(date, a.date));
+@EntityRepository(Appointment)
+class AppointmentsRepository extends Repository<Appointment> {
+  public async findByDate(date: Date): Promise<Appointment | null> {
+    const appointment = await this.findOne({
+      where: { date },
+    });
     return appointment || null;
-  }
-
-  public create({ barber, date }: CreateAppointmentDTO): Appointment {
-    const appointment = new Appointment({ barber, date });
-    this.appointments.push(appointment);
-    return appointment;
   }
 }
 
