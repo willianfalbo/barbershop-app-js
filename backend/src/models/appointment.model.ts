@@ -1,14 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import CommonFields from './common.model';
+import User from './user.model';
 
 @Entity('appointments')
-class Appointment {
+class Appointment extends CommonFields {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
-  barber: string;
+  @Column({ name: 'barber_id' })
+  barberId: string;
 
-  @Column({ nullable: false, type: 'timestamp with time zone' })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'barber_id' })
+  barber: User;
+
+  @Column({ type: 'timestamp with time zone' })
   date: Date;
 }
 

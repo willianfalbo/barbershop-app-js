@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const { barber, date } = req.body;
+    const { barberId, date } = req.body;
     const parsedDate = parseISO(date);
     const service = new CreateAppointmentService();
-    const appointment = await service.execute({ barber, date: parsedDate });
+    const appointment = await service.execute({ barberId, date: parsedDate });
     return res.json(appointment);
   } catch (err) {
     return res.status(400).json({ error: err.message });

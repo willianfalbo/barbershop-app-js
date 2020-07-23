@@ -1,21 +1,25 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
-import { defaultId, defaultTimestamps } from '../common-fields';
+import { defaultTimestamps, defaultId } from '../common-fields';
 
-export default class AddedAppointment1595452932772
-  implements MigrationInterface {
+export default class AddedUser1595528741048 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'appointments',
+        name: 'users',
         columns: [
           { ...defaultId },
           {
-            name: 'barber',
+            name: 'name',
             type: 'varchar',
           },
           {
-            name: 'date',
-            type: 'timestamp with time zone',
+            name: 'email',
+            type: 'varchar',
+            isUnique: true,
+          },
+          {
+            name: 'password',
+            type: 'varchar',
           },
           ...defaultTimestamps,
         ],
@@ -24,6 +28,6 @@ export default class AddedAppointment1595452932772
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('appointments');
+    await queryRunner.dropTable('users');
   }
 }
