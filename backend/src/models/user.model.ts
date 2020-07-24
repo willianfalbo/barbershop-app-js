@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import CommonFields from './common.model';
+import CommonFields from './support/common.model';
 
 @Entity('users')
 class User extends CommonFields {
@@ -15,8 +15,8 @@ class User extends CommonFields {
   @Column()
   password: string;
 
-  @Column({ name: 'avatar_uri', nullable: true })
-  avatarUri: string;
+  @Column({ name: 'avatar_filename', nullable: true })
+  avatarFilename: string;
 }
 
 export default User;

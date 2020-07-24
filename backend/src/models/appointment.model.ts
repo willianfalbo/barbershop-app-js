@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import CommonFields from './common.model';
+import CommonFields from './support/common.model';
 import User from './user.model';
 
 @Entity('appointments')

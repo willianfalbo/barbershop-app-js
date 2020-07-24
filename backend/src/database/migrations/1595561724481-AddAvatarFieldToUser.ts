@@ -6,7 +6,7 @@ export default class AddAvatarFieldToUser1595561724481
     await queryRunner.addColumn(
       'users',
       new TableColumn({
-        name: 'avatar_uri',
+        name: 'avatar_filename',
         type: 'varchar',
         isNullable: true,
       }),
@@ -14,6 +14,6 @@ export default class AddAvatarFieldToUser1595561724481
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('users', 'avatar_url');
+    await queryRunner.dropColumn('users', 'avatar_filename');
   }
 }

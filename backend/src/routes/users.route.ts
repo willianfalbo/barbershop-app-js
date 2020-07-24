@@ -9,34 +9,21 @@ const router = Router();
 const upload = multer(uploadConfig);
 
 router.post('/', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-
-    const service = new CreateUserService();
-    const user = await service.execute({ name, email, password });
-
-    delete user.password;
-
-    return res.json(user);
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
-  }
+  const { name, email, password } = req.body;
+  const service = new CreateUserService();
+  const user = await service.execute({ name, email, password });
+  delete user.password;
+  return res.json(user);
 });
 
 router.patch('/avatar', jwtAuth, upload.single('file'), async (req, res) => {
-  try {
-    const service = new UpdateUserAvatarService();
-    const user = await service.execute({
-      userId: req.userId,
-      avatarUri: req.file.filename,
-    });
-
-    delete user.password;
-
-    return res.json(user);
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
-  }
+  const service = new UpdateUserAvatarService();
+  const user = await service.execute({
+    userId: req.userId,
+    avatarFilename: req.file.filename,
+  });
+  delete user.password;
+  return res.json(user);
 });
 
 export default router;

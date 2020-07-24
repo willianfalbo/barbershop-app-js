@@ -7,6 +7,7 @@ import jwtAuth from '../middlewares/jwt-auth.middleware';
 
 const router = Router();
 
+// placing this line on top adds this middleware for all routes in this file
 router.use(jwtAuth);
 
 router.get('/', async (req, res) => {
@@ -16,15 +17,11 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  try {
-    const { barberId, date } = req.body;
-    const parsedDate = parseISO(date);
-    const service = new CreateAppointmentService();
-    const appointment = await service.execute({ barberId, date: parsedDate });
-    return res.json(appointment);
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
-  }
+  const { barberId, date } = req.body;
+  const parsedDate = parseISO(date);
+  const service = new CreateAppointmentService();
+  const appointment = await service.execute({ barberId, date: parsedDate });
+  return res.json(appointment);
 });
 
 export default router;
