@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import authConfig from '../config/auth';
+import authConfig from '../config/auth.config';
 
 interface TokenPayload {
   iat: number;
@@ -8,7 +8,7 @@ interface TokenPayload {
   sub: string;
 }
 
-export default function isAuthenticated(
+export default function jwtAuth(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -25,9 +25,7 @@ export default function isAuthenticated(
     const decodedToken = verify(token, authConfig.secret);
     const { sub } = decodedToken as TokenPayload;
 
-    req.user = {
-      id: sub,
-    };
+    req.userId = sub;
 
     return next();
   } catch {

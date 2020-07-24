@@ -14,6 +14,9 @@ class User extends CommonFields {
 
   @Column()
   password: string;
+
+  @Column({ name: 'avatar_uri', nullable: true })
+  avatarUri: string;
 }
 
 export default User;

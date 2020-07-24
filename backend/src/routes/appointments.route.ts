@@ -3,11 +3,11 @@ import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 import CreateAppointmentService from '../services/create-appointment.service';
 import AppointmentsRepository from '../repositories/appointments.repository';
-import jwtAuthentication from '../middlewares/jwt-authentication';
+import jwtAuth from '../middlewares/jwt-auth.middleware';
 
 const router = Router();
 
-router.use(jwtAuthentication);
+router.use(jwtAuth);
 
 router.get('/', async (req, res) => {
   const repository = getCustomRepository(AppointmentsRepository);
