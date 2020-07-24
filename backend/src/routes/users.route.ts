@@ -8,12 +8,7 @@ router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
 
     const service = new CreateUserService();
-
-    const user = await service.execute({
-      name,
-      email,
-      password,
-    });
+    const user = await service.execute({ name, email, password });
 
     delete user.password;
 
