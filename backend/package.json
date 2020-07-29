@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "start": "yarn sucrase-node src/server.js",
+    "watch": "nodemon src/server.js",
+    "watch:debug": "nodemon --inspect src/server.js",
     "migration:add": "yarn sequelize migration:create --name=change-migration-name-here",
     "migration:update": "yarn sequelize db:migrate",
     "migration:undo-last": "yarn sequelize db:migrate:undo",

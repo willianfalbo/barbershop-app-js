@@ -5,8 +5,8 @@ import authConfig from '../../config/auth';
 
 import User from '../models/User';
 
-class SessionController {
-  async store(req, res) {
+class AuthController {
+  async login(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
         .email()
@@ -45,4 +45,4 @@ class SessionController {
   }
 }
 
-export default new SessionController();
+export default new AuthController();

@@ -5,7 +5,7 @@ import File from '../models/File';
 import Appointment from '../models/Appointment';
 
 class AppointmentController {
-  async index(req, res) {
+  async list(req, res) {
     const { page = 1 } = req.query;
     const pageLimit = 20;
 
@@ -30,9 +30,9 @@ class AppointmentController {
     res.json(appointments);
   }
 
-  async store(req, res) {
+  async create(req, res) {
     const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
+      providerId: Yup.number().required(),
       date: Yup.date().required(),
     });
 
@@ -40,11 +40,11 @@ class AppointmentController {
       return res.status(400).json({ error: 'Schema validation failed' });
     }
 
-    const { provider_id, date } = req.body;
+    const { providerId, date } = req.body;
 
-    // check if provider_id is valid
+    // check if providerId is valid
     const isProvider = await User.findOne({
-      where: { id: provider_id, provider: true },
+      where: { id: providerId, provider: true },
     });
 
     if (!isProvider) {
@@ -64,7 +64,7 @@ class AppointmentController {
     // check appointment availability
     const checkAvailability = await Appointment.findOne({
       where: {
-        provider_id,
+        provider_id: providerId,
         canceled_at: null,
         date: hourStart,
       },
@@ -78,7 +78,7 @@ class AppointmentController {
 
     const appointment = await Appointment.create({
       user_id: req.userId,
-      provider_id,
+      provider_id: providerId,
       date: hourStart,
     });
 

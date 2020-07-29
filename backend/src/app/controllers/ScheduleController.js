@@ -4,8 +4,8 @@ import { Op } from 'sequelize';
 import User from '../models/User';
 import Appointment from '../models/Appointment';
 
-class ProviderScheduleController {
-  async index(req, res) {
+class ScheduleController {
+  async list(req, res) {
     const checkUserProvider = await User.findOne({
       where: { id: req.userId, provider: true },
     });
@@ -32,4 +32,4 @@ class ProviderScheduleController {
   }
 }
 
-export default new ProviderScheduleController();
+export default new ScheduleController();
