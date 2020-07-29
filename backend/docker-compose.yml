@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  mongodb:
+    image: 'mongo'
+    container_name: 'mongodb-barbershop-app'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ~/mongo-volume:/data/db
+    ports:
+      - '27017:27017'
+
+  postgres:
+    image: 'postgres'
+    container_name: 'postgres-barbershop-app'
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ~/postgres-volume:/data/db
+    ports:
+      - '5432:5432'
