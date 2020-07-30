@@ -25,7 +25,7 @@ class Database {
 
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/barbershop-db-js', // TODO: add this to env config
+      'mongodb://root:password@localhost/barbershop-db-js?authSource=admin', // TODO: add this to env config
       {
         useNewUrlParser: true,
         useFindAndModify: true,
