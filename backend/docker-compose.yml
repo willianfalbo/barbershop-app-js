@@ -3,21 +3,34 @@ services:
 
   mongodb:
     image: 'mongo'
-    container_name: 'mongodb-barbershop-app'
+    container_name: 'mongodb-barbershopjs'
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - ~/mongo-volume:/data/db
+      - mongo-volume:/var/lib/mongodb/data
     ports:
       - '27017:27017'
 
   postgres:
     image: 'postgres'
-    container_name: 'postgres-barbershop-app'
+    container_name: 'postgres-barbershopjs'
     environment:
       - POSTGRES_PASSWORD=password
     volumes:
-      - ~/postgres-volume:/data/db
+      - postgres-volume:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis-barbershopjs'
+    volumes:
+      - redis-volume:/var/lib/redisdb/data
+    ports:
+      - '6379:6379'
+
+volumes:
+  mongo-volume:
+  postgres-volume:
+  redis-volume:

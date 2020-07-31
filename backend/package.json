@@ -7,6 +7,7 @@
     "start": "yarn sucrase-node src/server.js",
     "watch": "nodemon src/server.js",
     "watch:debug": "nodemon --inspect src/server.js",
+    "queue": "nodemon src/queue.js",
     "migration:add": "yarn sequelize migration:create --name=change-migration-name-here",
     "migration:update": "yarn sequelize db:migrate",
     "migration:undo-last": "yarn sequelize db:migrate:undo",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.2.3",
     "date-fns": "^2.0.0-beta.5",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",

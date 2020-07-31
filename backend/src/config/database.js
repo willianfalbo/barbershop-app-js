@@ -7,7 +7,7 @@ module.exports = {
   host: 'localhost',
   username: 'postgres',
   password: 'password',
-  database: 'barbershop-db-js',
+  database: 'barbershop-js',
   define: {
     // to add createAt/updatedAt columns in each table
     timestamps: true,
