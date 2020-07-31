@@ -1,11 +1,10 @@
 import Sequelize from 'sequelize';
 import mongoose from 'mongoose';
-
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
-
-import databaseConfig from '../config/database';
+import postgresConfig from '../config/postgres';
+import mongoConfig from '../config/mongo';
 
 const models = [User, File, Appointment];
 
@@ -16,7 +15,7 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig);
+    this.connection = new Sequelize(postgresConfig);
 
     models
       .map(model => model.init(this.connection))
@@ -25,12 +24,8 @@ class Database {
 
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://root:password@localhost/barbershop-db-js?authSource=admin', // TODO: add this to env config
-      {
-        useNewUrlParser: true,
-        useFindAndModify: true,
-        useUnifiedTopology: true,
-      }
+      mongoConfig.uri,
+      mongoConfig.options
     );
   }
 }

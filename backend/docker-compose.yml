@@ -8,7 +8,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - mongo-volume:/var/lib/mongodb/data
+      - ~/mongo-volume:/data/db
+      - ~/mongo-config-volume:/data/configdb
     ports:
       - '27017:27017'
 
@@ -18,7 +19,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     volumes:
-      - postgres-volume:/var/lib/postgresql/data
+      - ~/postgres-volume:/var/lib/postgresql/data
     ports:
       - '5432:5432'
 
@@ -26,11 +27,12 @@ services:
     image: 'redis:alpine'
     container_name: 'redis-barbershopjs'
     volumes:
-      - redis-volume:/var/lib/redisdb/data
+      - ~/redis-volume:/data
     ports:
       - '6379:6379'
 
 volumes:
   mongo-volume:
+  mongo-config-volume:
   postgres-volume:
   redis-volume:
