@@ -1,11 +1,10 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
 import en from 'date-fns/locale/en-GB';
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
-
 import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
 
@@ -17,7 +16,7 @@ class AppointmentController {
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'pastDate', 'cancelable'],
       limit: pageLimit,
       offset: (page - 1) * pageLimit,
       include: [
@@ -114,8 +113,7 @@ class AppointmentController {
         .json({ error: 'You are not allowed to cancel this appointment' });
     }
 
-    const cancelUntilDate = subHours(appointment.date, 2);
-    if (isBefore(cancelUntilDate, new Date())) {
+    if (appointment.cancelable === false) {
       return res.status(403).json({
         error: 'You can only cancel appointments in 2 hours of advance',
       });
