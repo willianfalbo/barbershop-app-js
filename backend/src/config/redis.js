@@ -1,5 +1,7 @@
-// TODO: add this to env config
+import 'dotenv/config';
+import { checkConfig } from '.';
+
 export default {
-  host: 'localhost',
-  port: 6379,
+  host: checkConfig(process.env.REDIS_HOST),
+  port: checkConfig(process.env.REDIS_PORT),
 };

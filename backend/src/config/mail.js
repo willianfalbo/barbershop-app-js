@@ -1,11 +1,13 @@
-// TODO: add this to env config
+import 'dotenv/config';
+import { checkConfig } from '.';
+
 export default {
-  host: 'smtp.mailtrap.io',
-  port: 2525,
+  host: checkConfig(process.env.MAIL_HOST),
+  port: checkConfig(process.env.MAIL_PORT),
   secure: false,
   auth: {
-    user: '49dc03b7160081',
-    pass: 'ab004fb023e8b7',
+    user: checkConfig(process.env.MAIL_USER),
+    pass: checkConfig(process.env.MAIL_PASS),
   },
   default: {
     from: 'BarbershopJs Team <noreply@barbershopjs.com>',

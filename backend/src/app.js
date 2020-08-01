@@ -5,6 +5,7 @@ import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import routes from './routes';
 import sentryConfig from './config/sentry';
+import { config } from './config';
 import './database';
 
 class App {
@@ -40,9 +41,12 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
-      // Youch is a pretty error reporting
-      const errors = await new Youch(err, req).toJSON();
-      return res.status(500).json(errors);
+      if (config.environment === 'development') {
+        // Youch is a pretty error reporting
+        const errors = await new Youch(err, req).toJSON();
+        return res.status(500).json(errors);
+      }
+      return res.status(500).json({ error: 'Internal server error' });
     });
   }
 }

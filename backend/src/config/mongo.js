@@ -1,6 +1,8 @@
-// TODO: add this to env config
+import 'dotenv/config';
+import { checkConfig } from '.';
+
 export default {
-  uri: 'mongodb://root:password@localhost/barbershop-db-js?authSource=admin',
+  uri: checkConfig(process.env.MONGO_URI),
   options: {
     useNewUrlParser: true,
     useFindAndModify: true,
