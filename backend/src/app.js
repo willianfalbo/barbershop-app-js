@@ -1,6 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import path from 'path';
+import cors from 'cors';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import routes from './routes';
@@ -22,6 +23,9 @@ class App {
   middlewares() {
     // sentry request handler must be the first middleware on the app
     this.server.use(Sentry.Handlers.requestHandler());
+
+    // cors
+    this.server.use(cors());
 
     // to enable json on body requests
     this.server.use(express.json());
