@@ -1,9 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-// import { Container } from './styles';
+import logo from '../../assets/logo.svg';
 
-function SignUp() {
-  return <h1>SignUp</h1>;
+export default function SignUp() {
+  return (
+    <>
+      <img className="logo" src={logo} alt="Barbershop" />
+
+      <form>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Create Account Now</button>
+        <Link to="/">Already have an account?</Link>
+      </form>
+    </>
+  );
 }
-
-export default SignUp;
