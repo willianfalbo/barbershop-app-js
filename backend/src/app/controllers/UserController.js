@@ -50,7 +50,7 @@ class UserController {
           password ? field.required().oneOf([Yup.ref('password')]) : field
         ),
       avatarId: Yup.number()
-        .required()
+        .optional()
         .positive()
         .integer(),
     });
@@ -76,9 +76,11 @@ class UserController {
       return res.status(401).json({ error: 'Password does not match' });
     }
 
-    const file = await File.findByPk(avatarId);
-    if (!file) {
-      return res.status(401).json({ error: 'Avatar ID was not found' });
+    if (avatarId) {
+      const file = await File.findByPk(avatarId);
+      if (!file) {
+        return res.status(401).json({ error: 'Avatar ID was not found' });
+      }
     }
 
     await user.update({
