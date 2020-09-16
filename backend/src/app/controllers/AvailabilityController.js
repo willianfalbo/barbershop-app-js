@@ -30,6 +30,7 @@ class AvailableController {
       },
     });
 
+    // TODO: Move it to a shared file
     const schedule = [
       '08:00',
       '09:00',
