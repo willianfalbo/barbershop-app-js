@@ -4,6 +4,7 @@ import en from 'date-fns/locale/en-GB';
 import User from '../models/User';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
+import { BadRequestException, ForbiddenException } from '../errors';
 
 class AppointmentCreateService {
   async run({ providerId, date, userId }) {
@@ -13,7 +14,9 @@ class AppointmentCreateService {
     });
 
     if (!isProvider) {
-      throw new Error('You can only create appointment with providers');
+      throw new ForbiddenException(
+        'You can only create appointment with providers'
+      );
     }
 
     // it converts the string to valid date and it gets the start hour only
@@ -21,7 +24,7 @@ class AppointmentCreateService {
 
     // check for past dates
     if (isBefore(hourStart, new Date())) {
-      throw new Error('Past dates are not allowed');
+      throw new BadRequestException('Past dates are not allowed');
     }
 
     // check appointment availability
@@ -34,7 +37,7 @@ class AppointmentCreateService {
     });
 
     if (checkAvailability) {
-      throw new Error('Appointment date is not available');
+      throw new BadRequestException('Appointment date is not available');
     }
 
     const appointment = await Appointment.create({

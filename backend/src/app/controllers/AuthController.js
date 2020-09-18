@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 import authConfig from '../../config/auth';
-
 import User from '../models/User';
 import File from '../models/File';
+import { UnauthorizedException, NotFoundException } from '../errors';
 
 class AuthController {
   async login(req, res) {
@@ -17,11 +17,11 @@ class AuthController {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new NotFoundException('User not found');
     }
 
     if (!(await user.checkPassword(password))) {
-      return res.status(401).json({ error: 'Password does not match' });
+      throw new UnauthorizedException('Password does not match');
     }
 
     const { id, name, provider, avatar } = user;

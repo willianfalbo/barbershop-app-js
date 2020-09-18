@@ -12,6 +12,7 @@ import { Op } from 'sequelize';
 
 import User from '../models/User';
 import Appointment from '../models/Appointment';
+import { ForbiddenException } from '../errors';
 
 class ScheduleController {
   async list(req, res) {
@@ -20,7 +21,7 @@ class ScheduleController {
     });
 
     if (!checkUserProvider) {
-      return res.status(401).json({ error: 'User is not a provider' });
+      throw new ForbiddenException('Only providers can load schedules.');
     }
 
     const { date } = req.query;

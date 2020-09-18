@@ -1,5 +1,6 @@
 import User from '../models/User';
 import Notification from '../schemas/Notification';
+import { ForbiddenException } from '../errors';
 
 class NotificationController {
   async list(req, res) {
@@ -8,9 +9,7 @@ class NotificationController {
     });
 
     if (!isProvider) {
-      return res
-        .status(401)
-        .json({ error: 'Only providers can load notifications.' });
+      throw new ForbiddenException('Only providers can load notifications.');
     }
 
     const notifications = await Notification.find({

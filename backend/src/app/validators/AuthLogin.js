@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { BadRequestException } from '../errors';
 
 export default async (req, res, next) => {
   try {
@@ -13,8 +14,6 @@ export default async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return res
-      .status(400)
-      .json({ error: 'Schema validation failed', messages: err.inner });
+    throw new BadRequestException(err.errors);
   }
 };

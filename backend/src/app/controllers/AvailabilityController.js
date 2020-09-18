@@ -9,13 +9,14 @@ import {
 } from 'date-fns';
 import { Op } from 'sequelize';
 import Appointment from '../models/Appointment';
+import { BadRequestException } from '../errors';
 
 class AvailableController {
   async list(req, res) {
     const { date } = req.query;
 
     if (!date) {
-      return res.status(400).json({ error: 'Invalid date' });
+      throw new BadRequestException('Invalid date');
     }
 
     const searchDate = Number(date);

@@ -4,6 +4,7 @@ import Appointment from '../models/Appointment';
 import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
 import AppointmentCreateService from '../services/AppointmentCreateService';
+import { ForbiddenException } from '../errors';
 
 class AppointmentController {
   async list(req, res) {
@@ -52,15 +53,15 @@ class AppointmentController {
     });
 
     if (appointment.user_id !== req.userId) {
-      return res
-        .status(403)
-        .json({ error: 'You are not allowed to cancel this appointment' });
+      throw new ForbiddenException(
+        'You are not allowed to cancel this appointment'
+      );
     }
 
     if (appointment.cancelable === false) {
-      return res.status(403).json({
-        error: 'You can only cancel appointments in 2 hours of advance',
-      });
+      throw new ForbiddenException(
+        'You can only cancel appointments in 2 hours of advance'
+      );
     }
 
     appointment.canceled_at = new Date();
