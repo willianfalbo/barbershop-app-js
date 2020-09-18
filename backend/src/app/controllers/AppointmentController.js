@@ -1,10 +1,8 @@
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
-import CancellationMail from '../jobs/CancellationMail';
-import Queue from '../../lib/Queue';
 import AppointmentCreateService from '../services/AppointmentCreateService';
-import { ForbiddenException } from '../errors';
+import AppointmentCancelService from '../services/AppointmentCancelService';
 
 class AppointmentController {
   async list(req, res) {
@@ -45,30 +43,10 @@ class AppointmentController {
   }
 
   async delete(req, res) {
-    const appointment = await Appointment.findByPk(req.params.id, {
-      include: [
-        { model: User, as: 'provider', attributes: ['name', 'email'] },
-        { model: User, as: 'user', attributes: ['name'] },
-      ],
+    const appointment = await AppointmentCancelService.run({
+      providerId: req.params.id,
+      userId: req.userId,
     });
-
-    if (appointment.user_id !== req.userId) {
-      throw new ForbiddenException(
-        'You are not allowed to cancel this appointment'
-      );
-    }
-
-    if (appointment.cancelable === false) {
-      throw new ForbiddenException(
-        'You can only cancel appointments in 2 hours of advance'
-      );
-    }
-
-    appointment.canceled_at = new Date();
-    await appointment.save();
-
-    // trigger email cancellation queue
-    await Queue.add(CancellationMail.key, { appointment });
 
     return res.json(appointment);
   }
