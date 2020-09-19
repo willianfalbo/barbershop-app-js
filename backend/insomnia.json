@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-09-17T18:26:17.664Z",
+  "__export_date": "2020-09-19T21:37:07.348Z",
   "__export_source": "insomnia.desktop.app:v2020.3.3",
   "resources": [
     {
@@ -161,7 +161,7 @@
       "isPrivate": false,
       "metaSortKey": -1596051261973.25,
       "method": "GET",
-      "modified": 1596058064212,
+      "modified": 1600551408558,
       "name": "List",
       "parameters": [],
       "parentId": "fld_b024e3c051a545b0942230c1ae1acf5f",
@@ -171,7 +171,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{base_url}}/appointments",
+      "url": "{{base_url}}/appointments?page=1",
       "_type": "request"
     },
     {
@@ -230,7 +230,7 @@
       },
       "body": {
         "mimeType": "",
-        "text": "{\n\t\"providerId\": 2,\n\t\"date\": \"2020-09-16T19:00:00-03:00\"\n}"
+        "text": "{\n\t\"providerId\": 2,\n\t\"date\": \"2020-09-30T19:00:00-03:00\"\n}"
       },
       "created": 1596051152006,
       "description": "",
@@ -244,7 +244,7 @@
       "isPrivate": false,
       "metaSortKey": -1596051261923.25,
       "method": "POST",
-      "modified": 1600200706856,
+      "modified": 1600551383250,
       "name": "Create",
       "parameters": [],
       "parentId": "fld_b024e3c051a545b0942230c1ae1acf5f",
@@ -350,7 +350,7 @@
       "authentication": {},
       "body": {
         "mimeType": "",
-        "text": "{\n\t\"email\": \"bob@gmail.com\",\n\t\"password\": \"password\"\n}"
+        "text": "{\n\t\"email\": \"will@gmail.com\",\n\t\"password\": \"password\"\n}"
       },
       "created": 1596051152107,
       "description": "",
@@ -364,7 +364,7 @@
       "isPrivate": false,
       "metaSortKey": -1596051209295,
       "method": "POST",
-      "modified": 1600214176545,
+      "modified": 1600549614291,
       "name": "Login",
       "parameters": [],
       "parentId": "fld_22a205ac4f834b1a80e681f2ed5db4f6",
@@ -413,7 +413,7 @@
       "isPrivate": false,
       "metaSortKey": -1596051152280,
       "method": "PUT",
-      "modified": 1596234063154,
+      "modified": 1600546987358,
       "name": "Update",
       "parameters": [],
       "parentId": "fld_be9ec380bb694edd9323702d3642d81d",
@@ -443,7 +443,7 @@
       "authentication": {},
       "body": {
         "mimeType": "",
-        "text": "{\n\t\"name\": \"Will\",\n\t\"email\": \"will@gmail.com\",\n\t\"password\": \"password\"\n}"
+        "text": "{\n\t\"name\": \"Will\",\n\t\"email\": \"will@gmail.com\",\n\t\"password\": \"password\",\n\t\"provider\": false\n}"
       },
       "created": 1596051152230,
       "description": "",
@@ -457,7 +457,7 @@
       "isPrivate": false,
       "metaSortKey": -1596051152230,
       "method": "POST",
-      "modified": 1596233480773,
+      "modified": 1600546312241,
       "name": "Create",
       "parameters": [],
       "parentId": "fld_be9ec380bb694edd9323702d3642d81d",
@@ -565,7 +565,7 @@
       "created": 1596051113557,
       "data": {
         "base_url": "http://localhost:3333",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjAwMjE0MTc4LCJleHAiOjE2MDA4MTg5Nzh9.21qkRvwPhSZI-Bkde7qjsn4eovuSeUDMy5wxtihDYsM"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjAwNTQ5NjI1LCJleHAiOjE2MDExNTQ0MjV9.u4nxt5dGzcxfysM_LhuPaPYBQvmgE9F4pTRTNTQZPRo"
       },
       "dataPropertyOrder": {
         "&": [
@@ -575,7 +575,7 @@
       },
       "isPrivate": false,
       "metaSortKey": 1595302063518,
-      "modified": 1600214190633,
+      "modified": 1600549634823,
       "name": "dev",
       "parentId": "env_09703122eea548cdbfab297ca2b48080",
       "_type": "environment"

@@ -2,6 +2,7 @@ import User from '../models/User';
 import Appointment from '../models/Appointment';
 import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
+import Cache from '../../lib/Cache';
 import { ForbiddenException, BadRequestException } from '../errors';
 
 class AppointmentCancelService {
@@ -38,6 +39,10 @@ class AppointmentCancelService {
 
     // trigger email cancellation queue
     await Queue.add(CancellationMail.key, { appointment });
+
+    // remove from cache
+    const cacheKeyToRemove = `user:${userId}:appointments`;
+    Cache.removePrefix(cacheKeyToRemove);
 
     return appointment;
   }

@@ -1,6 +1,7 @@
 import User from '../models/User';
 import File from '../models/File';
 import { BadRequestException, NotFoundException } from '../errors';
+import Cache from '../../lib/Cache';
 
 class UserController {
   async create(req, res) {
@@ -10,6 +11,11 @@ class UserController {
     }
 
     const { id, name, email, provider } = await User.create(req.body);
+
+    // remove from cache
+    if (provider) {
+      await Cache.remove('providers');
+    }
 
     return res.json({ id, name, email, provider });
   }
@@ -42,11 +48,16 @@ class UserController {
       avatar_id: avatarId,
     });
 
-    const { id, name, avatar } = await User.findByPk(req.userId, {
+    const { id, name, avatar, provider } = await User.findByPk(req.userId, {
       include: [
         { model: File, as: 'avatar', attributes: ['id', 'path', 'url'] },
       ],
     });
+
+    // remove from cache
+    if (provider) {
+      await Cache.remove('providers');
+    }
 
     return res.json({ id, name, email, avatar });
   }
