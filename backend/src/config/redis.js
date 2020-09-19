@@ -4,4 +4,5 @@ import { checkConfig } from '.';
 export default {
   host: checkConfig(process.env.REDIS_HOST),
   port: checkConfig(process.env.REDIS_PORT),
+  prefix: 'BarbershopJs',
 };

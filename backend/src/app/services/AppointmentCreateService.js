@@ -5,6 +5,7 @@ import User from '../models/User';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 import { BadRequestException, ForbiddenException } from '../errors';
+import Cache from '../../lib/Cache';
 
 class AppointmentCreateService {
   async run({ providerId, date, userId }) {
@@ -55,6 +56,10 @@ class AppointmentCreateService {
       content: `${user.name} added an appointment on ${formattedDate}.`,
       user: providerId,
     });
+
+    // remove from cache
+    const cacheKeyToRemove = `user:${userId}:appointments`;
+    Cache.removePrefix(cacheKeyToRemove);
 
     return appointment;
   }
