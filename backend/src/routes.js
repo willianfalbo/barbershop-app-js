@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
+import bruteForce from './config/brute-force';
 import authMiddleware from './app/middlewares/auth';
 // validators
 import validateUserCreate from './app/validators/UserCreate';
@@ -23,7 +24,12 @@ const upload = multer(multerConfig);
 // routes without authentication
 routes.post('/users', validateUserCreate, UserController.create);
 
-routes.post('/auth/login', validateAuthLogin, AuthController.login);
+routes.post(
+  '/auth/login',
+  bruteForce.prevent,
+  validateAuthLogin,
+  AuthController.login
+);
 
 // the routes bellow will use authentication
 routes.use(authMiddleware);
