@@ -5,7 +5,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import * as Sentry from '@sentry/node';
 import routes from './routes';
+import { config } from './config';
 import sentryConfig from './config/sentry';
+import rateLimitConfig from './config/rate-limit';
 import './database';
 
 class App {
@@ -34,6 +36,11 @@ class App {
       '/files',
       express.static(path.resolve(__dirname, '..', 'tmp'))
     );
+
+    // rate limit access
+    if (config.environment !== 'development') {
+      this.server.use(rateLimitConfig);
+    }
   }
 
   routes() {
