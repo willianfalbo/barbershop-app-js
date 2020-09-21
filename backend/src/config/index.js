@@ -9,5 +9,6 @@ export function checkConfig(value) {
 
 export const config = {
   apiUrl: checkConfig(process.env.API_URL),
+  frontendUrl: checkConfig(process.env.FRONTEND_URL),
   environment: checkConfig(process.env.NODE_ENV),
 };

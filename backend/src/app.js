@@ -25,7 +25,13 @@ class App {
     // sentry request handler must be the first middleware on the app
     this.server.use(Sentry.Handlers.requestHandler());
 
-    this.server.use(cors());
+    // cors
+    this.server.use(
+      cors({
+        origin: config.frontendUrl,
+      })
+    );
+
     this.server.use(helmet());
 
     // to enable json on body requests
